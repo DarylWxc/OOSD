@@ -1,0 +1,292 @@
+<!-- Author: Daryl
+Date: September 29 2024
+Course Module: CPRG210
+Assignment: HTML CSS JS Assignment -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daryl's exercise</title>
+    <script type="text/javascript" src="./resource.js"></script>
+    <style>
+      .instruction {
+        visibility: hidden;
+        font-size: 14px;
+        color: #333;
+      }
+
+      #instructions p {
+        margin: 5px 0;
+      }
+
+      /* Stack the instructions one below the other */
+      #instructions {
+        position: relative;
+      }
+
+      #instructions p {
+        position: absolute;
+        bottom: 20px;
+        left: 35%;
+        color: red;
+      }
+      input:focus {
+        background-color: #baf6f6;
+      }
+      #address:focus {
+        background-color: #baf6f6;
+      }
+      .form_container {
+        display: flex;
+        background-color: #f5efdf;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .form {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+      }
+      .page_title {
+        font-weight: 700;
+        font-size: 60px;
+        text-align: center;
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+          Microsoft YaHei, Arial, sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <button
+        onclick="BackToHome()"
+        style="
+          margin-bottom: 10px;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+        "
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          fill="currentColor"
+          class="bi bi-arrow-left-square-fill"
+          viewBox="0 0 16 16"
+        >
+          <path
+            d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1"
+          />
+        </svg>
+      </button>
+      <div class="page_title">Register</div>
+      <div class="form_container">
+        <form id="form" class="form">
+          <label for="lastname">lastname:</label>
+          <input
+            type="text"
+            name="lastname"
+            id="lastname"
+            class="lastname"
+            onfocus="showInstruction('lastname-info')"
+            onblur="hideInstructions()"
+          />
+          <br />
+          <br />
+          <label for="firstname">firstname:</label>
+          <input
+            type="text"
+            name="firstname"
+            id="firstname"
+            onfocus="showInstruction('firstname-info')"
+            onblur="hideInstructions()"
+          />
+          <br />
+          <br />
+          <label for="postalCode">Postal Code:</label>
+          <input
+            type="postalCode"
+            name="postalCode"
+            id="postalCode"
+            onfocus="showInstruction('postal-code')"
+            onblur="hideInstructions()"
+          />
+          <br />
+          <br />
+          <label for="province">Province:</label>
+          <input
+            name="province"
+            id="province"
+            onfocus="showInstruction('province-info')"
+            onblur="hideInstructions()"
+          />
+          <br />
+          <br />
+          <label for="city">city:</label>
+          <input
+            name="city"
+            id="city"
+            onfocus="showInstruction('city-info')"
+            onblur="hideInstructions()"
+          />
+          <br />
+          <br />
+          <label for="address">Address:</label>
+          <textarea
+            name="address"
+            id="address"
+            cols="20"
+            rows="5"
+            onfocus="showInstruction('address-info')"
+            onblur="hideInstructions()"
+            autocomplete="off"
+          ></textarea>
+          <br /><br />
+        </form>
+        <div class="btn_group">
+          <button id="submit" onclick="validateForm()">Submit</button>
+          <button class="reset" onclick="reset()">Reset</button>
+        </div>
+      </div>
+      <div id="instructions">
+        <p id="lastname-info" class="instruction">
+          Lastname should not be null.
+        </p>
+        <p id="firstname-info" class="instruction">
+          Firstname should not be null.
+        </p>
+        <p id="postal-code" class="instruction">PostalCode should be valid.</p>
+        <p id="province-info" class="instruction">Province should be valid.</p>
+        <p id="city-info" class="instruction">City should be valid.</p>
+        <p id="address-info" class="instruction">Address should be valid.</p>
+      </div>
+    </div>
+
+    <!-- instruction -->
+
+    <dialog id="reset_form">
+      <p>Are you sure want to reset the form?</p>
+      <button id="reset_ok" onclick="resetOK()">OK</button>
+      <button id="reset_cancel" onclick="resetCancel()">Cancel</button>
+    </dialog>
+    <script>
+      const resetForm = document.getElementById("reset_form");
+      const form = document.getElementById("form");
+
+      function resetOK() {
+        resetForm.close();
+        form.reset();
+      }
+
+      function resetCancel() {
+        resetForm.close();
+      }
+
+      function validateForm() {
+        const NAME_REGEX = /^[a-zA-Z]+$/;
+
+        let lastname = document.forms["form"]["lastname"].value;
+        if (lastname == "") {
+          alert("Lastname must be filled out");
+          return;
+        } else {
+          let match = NAME_REGEX.test(lastname);
+          if (!match) {
+            alert("Invalid Lastname");
+            return;
+          }
+        }
+        let firstname = document.forms["form"]["firstname"].value;
+        if (firstname == "") {
+          alert("Firstname must be filled out");
+          return;
+        } else {
+          let match = NAME_REGEX.test(firstname);
+          if (!match) {
+            alert("Invalid Firstname");
+            return;
+          }
+        }
+        let postalCode = document.forms["form"]["postalCode"].value;
+        if (postalCode == "") {
+          alert("postalCode must be filled out");
+          return;
+        } else {
+          var regex = /[A-Za-z]\d[A-Za-z] ?\d[A-Za-z]\d/;
+          var match = regex.exec(postalCode);
+          if (match) {
+            if (
+              (postalCode.indexOf("-") !== -1 ||
+                postalCode.indexOf(" ") !== -1) &&
+              postalCode.length == 7
+            ) {
+            } else if (
+              (postalCode.indexOf("-") == -1 ||
+                postalCode.indexOf(" ") == -1) &&
+              postalCode.length == 6
+            ) {
+            }
+          } else {
+            alert("postalCode is not valid");
+            return;
+          }
+        }
+        let province = document.forms["form"]["province"].value;
+        if (province == "") {
+          alert("province must be filled out");
+          return;
+        } else {
+          if (!provinces.includes(province)) {
+            alert("invalid province");
+            return;
+          }
+        }
+        let city = document.forms["form"]["city"].value;
+        if (city == "") {
+          alert("city must be filled out");
+          return;
+        } else {
+          if (!/^[A-Za-z\s]+$/.test(city)) {
+            alert("invalid city");
+            return;
+          }
+        }
+        let address = document.forms["form"]["address"].value;
+        if (address == "") {
+          alert("address must be filled out");
+          return;
+        }
+        alert("finally,you can submit this form");
+      }
+
+      function reset() {
+        resetForm.showModal();
+      }
+
+      function showInstruction(instructionId) {
+        const instructions = document.querySelectorAll(".instruction");
+        instructions.forEach((instruction) => {
+          instruction.style.visibility = "hidden";
+        });
+
+        const activeInstruction = document.getElementById(instructionId);
+        activeInstruction.style.visibility = "visible";
+      }
+
+      function hideInstructions() {
+        const instructions = document.querySelectorAll(".instruction");
+        instructions.forEach((instruction) => {
+          instruction.style.visibility = "hidden";
+        });
+      }
+
+      function BackToHome() {
+        window.location.href = "index.html";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,66 @@
+/* Author: Daryl
+Date: September 29 2024
+Course Module: CPRG210
+Assignment: HTML CSS JS Assignment */
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .img_list {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .img_list:hover {
+    cursor: pointer;
+  }
+  .main_content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .show_content {
+    /* visibility: hidden; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1067px;
+  }
+  .content_title {
+    width: 100%;
+    display: flex;
+    line-height: 30px;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .content_detail {
+    visibility: hidden;
+    display: flex;
+    width: 100%;
+    height: 500px;
+  }
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .img_source {
+    flex: 3;
+    border: 1px solid red;
+  }
+  .img_discription {
+    flex: 1;
+    text-align: center;
+    line-height: 500px;
+    border: 1px solid red;
+  }
+  .navigation {
+    display: flex;
+    justify-content: center;
+  }
+  .footer {
+    display: flex;
+    justify-content: center;
+  }

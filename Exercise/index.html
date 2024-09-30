@@ -1,0 +1,138 @@
+<!-- Author: Daryl
+Date: September 29 2024
+Course Module: CPRG210
+Assignment: HTML CSS JS Assignment -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daryl's exercise</title>
+    <script type="text/javascript" src="./resource.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <header class="header">
+      <img src="./image/travel experts.png" width="390" />
+      <h1>Welcome to Travel Experts</h1>
+    </header>
+    <main class="main_content">
+      <div class="img_list" id="img_list"></div>
+      <div class="show_content">
+        <div class="content_title">
+          <div class="title">Image Srouce</div>
+          <div class="title">Image Discription</div>
+        </div>
+        <div class="content_detail" id="content_detail">
+          <div class="img_source" id="img_source"></div>
+          <div class="img_discription" id="img_discription"></div>
+        </div>
+      </div>
+      <dialog id="confirm_Dialog">
+        <p id="confirm_content">Are you sure want to reset the form?</p>
+        <button id="reset_ok" onclick="OK()">OK</button>
+        <button id="reset_cancel" onclick="Cancel()">Cancel</button>
+      </dialog>
+    </main>
+    <nav>
+      <div class="navigation">
+        <a href="./contact.html">
+          <img src="./image/Contact.png" width="370" />
+        </a>
+        <br />
+        <a href="./resigster.html">
+          <img src="./image/Register.png" width="370" />
+        </a>
+      </div>
+    </nav>
+    <footer class="footer">Copyright from Daryl,September 24,2024.</footer>
+  </body>
+  <script>
+    //variables will needed
+    const img_list = document.getElementById("img_list");
+    const img_srouce = document.getElementById("img_source");
+    const img_discription = document.getElementById("img_discription");
+    const content_detail = document.getElementById("content_detail");
+    const cofirmText = document.getElementById("confirm_content");
+    const confirmDialog = document.getElementById("confirm_Dialog");
+
+    // an index used for point to the image
+    let index = 0;
+    // draw the img by javascript
+    for (let item of imageArray) {
+      let img = document.createElement("img");
+      img.src = item.src;
+      img.width = 370;
+      img.name = index;
+      img.addEventListener("mouseover", (event) => {
+        img.style.cursor = "pointer";
+        content_detail.style.visibility = "visible";
+        img_srouce.style.backgroundImage = `url("${imageArray[img.name].src}")`;
+        img_srouce.style.backgroundSize = "cover";
+        img_discription.innerText = stringArray[img.name];
+      });
+      img.addEventListener("mouseleave", () => {
+        content_detail.style.visibility = "hidden";
+      });
+      img.addEventListener("click", () => {
+        cofirmText.innerText = `Do you wanna jump to the image${img.name}?`;
+        index = img.name;
+        confirmDialog.showModal();
+      });
+      img_list.appendChild(img);
+      index++;
+    }
+
+    // Ok function of dialog
+    function OK() {
+      // set a variable for redirecting website
+      localStorage.setItem("showDirect", "0");
+      // create a new window
+      const newWindow = window.open("", "_blank", "width=400,height=400");
+
+      // Write HTML content into the new window, including a button
+      // If click that button,change the localstorage
+      newWindow.document.write(`
+        <html>
+          <head>
+            <title>New Window</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                padding-top: 50px;
+              }
+              button {
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>If you wanna redirect to the page that relate to the image,please click this button!</h1>
+            <button onclick="console.log(localStorage.setItem('showDirect','1'))">Click Me</button>
+          </body>
+        </html>
+      `);
+
+      Cancel();
+      // Set a timer for closing newWindow and redirect or not
+      setTimeout(() => {
+        newWindow.close();
+        if (localStorage.getItem("showDirect") === "1") {
+          // console.log("redirect to a new page");
+          // after redirecting,reset the variable
+          localStorage.setItem("showDirect", "0");
+          window.location.href = websites[index];
+        }
+      }, 5000);
+    }
+
+    // Cancel function of Dialog
+    function Cancel() {
+      confirmDialog.close();
+    }
+  </script>
+</html>
