@@ -1,0 +1,32 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+table {
+  width: 70%;
+  margin-bottom: 20px;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+.btn:hover {
+  color: red;
+  cursor: pointer;
+}
+.btn {
+  text-decoration: underline;
+  color: blue;
+}
+
+.add-btn {
+  cursor: pointer;
+}

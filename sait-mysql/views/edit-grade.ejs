@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Grade</title>
+  </head>
+  <body>
+    <h1>Edit Grade</h1>
+    <form action="/edit-grade/<%= grade.GradeId %>" method="post">
+      <label for="">Name: </label>
+      <select name="StudentId" id="Student-select" :value="<%= grade.StudentId %>">
+        <% students.forEach(item => { %>
+        <option value="<%= item.id %>" <%= grade.StudentId === item.id ? 'selected' : '' %>>
+          <%= item.firstname + " " + item.lastname %>
+        </option>
+        <% }) %>
+      </select>
+      <br />
+
+      <label for="">CourseId:</label>
+      <input type="number" name="CourseId" value="<%= grade.CourseId %>"/><br />
+
+      <label for="">Score:</label>
+      <input type="number" name="Score" value="<%= grade.Score %>"/><br />
+
+      <button type="submit">Add Grade</button>
+    </form>
+  </body>
+</html>

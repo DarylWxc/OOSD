@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grade of students</title>
+  </head>
+  <body>
+    <h1>List of All Grades</h1>
+    <a href="/add-grade">Add New Grades</a>
+    <a href="/">Students</a>
+    <% grade.forEach(item => { %>
+    <ul>
+      <li>CourseName:<%= item.courseName %></li>
+      <li style="color: red; font-weight: 700">
+        Name:<%= item.firstname + " " + item.lastname %>
+      </li>
+      <li>Score:<%= item.Score %></li>
+      <a href="/edit-grade/<%= item.GradeId %>">Edit Grade</a>
+      <a
+        onclick="DeleteData({id:'<%= item.GradeId %>',name:'<%= item.firstname + item.lastname %>',courseName:'<%= item.courseName %>'})"
+        style="cursor: pointer; text-decoration: underline; color: #0000ee"
+        >Delete</a
+      >
+    </ul>
+    <% }) %>
+    <dialog id="confirm_Dialog">
+      <p id="confirm_content">Are you sure want to delete Student's grade?</p>
+      <button id="ok" onclick="OK()">OK</button>
+      <button id="cancel" onclick="Cancel()">Cancel</button>
+    </dialog>
+    <script>
+      let currentId = 0;
+      const confirmText = document.getElementById("confirm_content");
+      const confirmDialog = document.getElementById("confirm_Dialog");
+
+      function DeleteData(grade) {
+        // console.log(student);
+        confirmText.innerText = `Are you sure want to delete ${grade.name}'s ${grade.courseName} Grade`;
+        currentId = grade.id;
+        confirmDialog.showModal();
+      }
+
+      function OK() {
+        // console.log(currentId)
+        const getDelete = document.createElement("a");
+        getDelete.href = `/delete-grade/${currentId}`;
+        getDelete.click();
+        getDelete.remove();
+      }
+
+      function Cancel() {
+        confirmDialog.close();
+      }
+    </script>
+  </body>
+</html>

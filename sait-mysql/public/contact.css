@@ -1,0 +1,52 @@
+.instruction {
+  visibility: hidden;
+  font-size: 14px;
+  color: #333;
+}
+
+#instructions p {
+  margin: 5px 0;
+}
+
+#instructions {
+  position: relative;
+}
+
+#instructions p {
+  position: absolute;
+  bottom: 20px;
+  left: 35%;
+  color: red;
+}
+input:focus {
+  background-color: #baf6f6;
+}
+#address:focus {
+  background-color: #baf6f6;
+}
+.form_container {
+  display: flex;
+  background-color: #f5efdf;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.page_title {
+  font-weight: 700;
+  font-size: 60px;
+  text-align: center;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+    Microsoft YaHei, Arial, sans-serif;
+}
+
+.return {
+  margin-bottom: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

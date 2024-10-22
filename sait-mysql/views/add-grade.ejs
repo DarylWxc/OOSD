@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Grade</title>
+  </head>
+  <body>
+    <h1>Add a new student</h1>
+    <form action="/add-grade" method="post">
+      <label for="">Name:</label>
+      <select name="StudentId" id="Student-select">
+        <% students.forEach(item => { %>
+        <option value="<%= item.id %>">
+          <%= item.firstname + " " + item.lastname %>
+        </option>
+        <% }) %>
+      </select>
+      <br />
+
+      <label for="">CourseId:</label>
+      <input type="number" name="CourseId" /><br />
+
+      <label for="">Score:</label>
+      <input type="number" name="Score" /><br />
+
+      <button type="submit">Add Grade</button>
+    </form>
+  </body>
+</html>
